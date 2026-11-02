@@ -21,6 +21,7 @@ import { images } from '../../assets/images';
 import { fontFamily } from '../../theme/typography';
 import { ROUTES } from '../../navigation/navigationTypes';
 import { useAuth } from '../../hooks/useAuth';
+import { vw, vh, rem } from '../../theme/responsive';
 import {
   IconArrowLeft,
   IconArrowRight,
@@ -31,8 +32,6 @@ import {
   IconGoogle,
   IconApple,
 } from '../../components/common/VedicIcons';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export const RegisterScreen = ({ navigation }) => {
   const insets = useSafeAreaInsets();
@@ -65,17 +64,20 @@ export const RegisterScreen = ({ navigation }) => {
       return;
     }
 
-    const result = await register({
-      name: name.trim(),
-      email: email.trim() || `${phone.trim()}@vidhilikhit.internal`,
-      phone: phone.trim(),
-      password,
-    });
+    const cleanPhone = phone.trim();
+    const formattedPhone = cleanPhone.startsWith('+') ? cleanPhone : `+91${cleanPhone}`;
+    const formattedEmail = email.trim() || `${cleanPhone.replace(/\D/g, '')}@vidhilikhit.com`;
 
-    if (result?.success || !error) {
-      // Proceed to Birth Details setup
-      navigation.navigate(ROUTES.BIRTH_DETAILS);
-    }
+    const registrationData = {
+      fullName: name.trim(),
+      email: formattedEmail,
+      mobileNumber: formattedPhone,
+      password,
+      termsAccepted: agreeTerms,
+    };
+
+    // Proceed to Birth Details setup step where birth details are completed and account created
+    navigation.navigate(ROUTES.BIRTH_DETAILS, { registrationData });
   };
 
   return (
@@ -284,33 +286,32 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
     alignItems: 'center',
   },
   headerBar: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: vh(0.5),
   },
   backButton: {
-    width: 36,
-    height: 36,
+    width: vw(9),
+    height: vw(9),
     justifyContent: 'center',
   },
-
   celestialImage: {
-    width: Math.min(SCREEN_WIDTH * 0.72, 280),
+    width: vw(68),
     height: '100%',
   },
   titleSection: {
     alignItems: 'center',
-    marginTop: 130,
-    marginBottom: 16,
+    marginTop: vh(14),
+    marginBottom: vh(1.8),
   },
   title: {
     fontFamily: fontFamily.title,
-    fontSize: 25,
+    fontSize: rem(25),
     fontWeight: '700',
     color: '#693917',
     textAlign: 'center',
@@ -321,11 +322,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 13.5,
+    fontSize: rem(13.5),
     fontWeight: '400',
     color: '#693917',
     textAlign: 'center',
-    marginTop: 4,
+    marginTop: vh(0.4),
     textShadowColor: '#ffffff',
     textShadowOffset: { width: 0, height: 1.5 },
     textShadowRadius: 2,
@@ -335,92 +336,93 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(217, 83, 79, 0.15)',
     borderWidth: 1,
     borderColor: '#D9534F',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 12,
+    borderRadius: rem(8),
+    padding: vw(2.5),
+    marginBottom: vh(1.2),
   },
   errorText: {
     fontFamily: fontFamily.regular,
     color: '#A94442',
-    fontSize: 12.5,
+    fontSize: rem(12.5),
     textAlign: 'center',
   },
   formContainer: {
     width: '100%',
-    gap: 11,
+    gap: vh(1.2),
   },
   inputCard: {
     width: '100%',
-    height: 50,
-    borderRadius: 12,
+    height: vh(6),
+    minHeight: rem(46),
+    borderRadius: rem(12),
     backgroundColor: 'rgba(255, 250, 242, 0.65)',
     borderWidth: 1.2,
     borderColor: '#D8C2A8',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 14,
+    paddingHorizontal: vw(3.5),
   },
   inputIconBox: {
-    width: 26,
+    width: vw(6.5),
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 8,
+    marginRight: vw(2),
   },
   countryCodeBox: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    marginRight: 10,
+    marginRight: vw(2.5),
   },
   flagText: {
-    fontSize: 15,
+    fontSize: rem(15),
   },
   countryCodeText: {
     fontFamily: fontFamily.bold,
-    fontSize: 14,
+    fontSize: rem(14),
     fontWeight: '700',
     color: '#26160C',
   },
   chevronText: {
     fontFamily: fontFamily.regular,
-    fontSize: 11,
+    fontSize: rem(11),
     color: '#6B4A30',
   },
   verticalDivider: {
     width: 1,
-    height: 22,
+    height: vh(2.8),
     backgroundColor: '#D8C2A8',
-    marginRight: 10,
+    marginRight: vw(2.5),
   },
   input: {
     flex: 1,
     fontFamily: fontFamily.regular,
-    fontSize: 14,
+    fontSize: rem(14),
     color: '#26160C',
     paddingVertical: 0,
   },
   passwordToggle: {
-    width: 30,
+    width: vw(7.5),
     alignItems: 'center',
     justifyContent: 'center',
   },
   termsRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginTop: 4,
-    marginBottom: 4,
+    marginTop: vh(0.4),
+    marginBottom: vh(0.4),
     paddingHorizontal: 2,
   },
   checkbox: {
-    width: 17,
-    height: 17,
-    borderRadius: 4,
+    width: rem(17),
+    height: rem(17),
+    borderRadius: rem(4),
     borderWidth: 1.4,
     borderColor: '#083236',
     backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 9,
+    marginRight: vw(2.2),
     marginTop: 1.5,
   },
   checkboxActive: {
@@ -429,16 +431,16 @@ const styles = StyleSheet.create({
   checkmark: {
     fontFamily: fontFamily.bold,
     color: '#E5B869',
-    fontSize: 11,
+    fontSize: rem(11),
     fontWeight: '800',
     marginTop: -2,
   },
   termsText: {
     flex: 1,
     fontFamily: fontFamily.regular,
-    fontSize: 12,
+    fontSize: rem(12),
     color: '#4E3726',
-    lineHeight: 17,
+    lineHeight: rem(17),
   },
   termsLink: {
     fontFamily: fontFamily.bold,
@@ -448,8 +450,9 @@ const styles = StyleSheet.create({
   },
   createButton: {
     width: '100%',
-    height: 52,
-    borderRadius: 26,
+    height: vh(6.2),
+    minHeight: rem(48),
+    borderRadius: rem(26),
     backgroundColor: '#083236',
     borderWidth: 1.5,
     borderColor: '#D4A853',
@@ -460,18 +463,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.28,
     shadowRadius: 8,
     elevation: 6,
-    marginTop: 6,
+    marginTop: vh(0.8),
   },
   buttonContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: vw(2),
   },
   createButtonText: {
     fontFamily: fontFamily.bold,
     color: '#F2E2BE',
-    fontSize: 16.5,
+    fontSize: rem(16.5),
     fontWeight: '700',
     letterSpacing: 0.4,
   },
@@ -479,7 +482,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 18,
+    marginVertical: vh(2),
   },
   dividerLine: {
     flex: 1,
@@ -488,30 +491,31 @@ const styles = StyleSheet.create({
   },
   dividerText: {
     fontFamily: fontFamily.regular,
-    fontSize: 12,
+    fontSize: rem(12),
     color: '#7A5E48',
-    marginHorizontal: 12,
+    marginHorizontal: vw(3),
   },
   socialRow: {
     width: '100%',
     flexDirection: 'row',
-    gap: 12,
+    gap: vw(3),
   },
   socialButton: {
     flex: 1,
-    height: 46,
-    borderRadius: 23,
+    height: vh(5.6),
+    minHeight: rem(44),
+    borderRadius: rem(22),
     backgroundColor: 'rgba(255, 250, 242, 0.75)',
     borderWidth: 1.2,
     borderColor: '#D8C2A8',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: vw(2),
   },
   socialButtonText: {
     fontFamily: fontFamily.bold,
-    fontSize: 14,
+    fontSize: rem(14),
     fontWeight: '700',
     color: '#26160C',
   },
@@ -519,16 +523,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 22,
+    marginTop: vh(2.5),
   },
   footerPrompt: {
     fontFamily: fontFamily.regular,
-    fontSize: 13.5,
+    fontSize: rem(13.5),
     color: '#5E4432',
   },
   signInLink: {
     fontFamily: fontFamily.bold,
-    fontSize: 13.5,
+    fontSize: rem(13.5),
     fontWeight: '700',
     color: '#154A4E',
     textDecorationLine: 'underline',

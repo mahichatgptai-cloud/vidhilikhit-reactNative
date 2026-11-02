@@ -11,14 +11,22 @@ export const images = {
   emblemHighRes: require('./emblem_highres.png'),
   templeHighRes: require('./temple_highres.png'),
   parchmentBg: require('./image_6.png'),
+  image6: require('./image_6.png'),
+  homeBg: require('./home_bg.png'),
   loginBg: require('./login_bg.png'),
   sunMoonHeader: require('./sun_moon_header.jpg'),
   sageReadingBg: require('./image_5.png'),
+  image5: require('./image_5.png'),
   splashScreenBg: require('./splash_screen.png'),
   screenSplash: require('./screen_splash.png'),
   screenOnboarding1: require('./screen_onboarding1.png'),
   screenOnboarding2: require('./screen_onboarding2.png'),
   screenOnboarding3: require('./screen_onboarding3.png'),
+  screenOne: require('./screen_one.png'),
+  screenTwo: require('./screen_two.png'),
+  screenThree: require('./screen_three.png'),
+  kundaliBg: require('./02_Kundali_Background.png'),
+  kundaliChart: require('./kundali_chart.png'),
 };
 
 export default images;

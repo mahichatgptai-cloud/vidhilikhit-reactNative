@@ -44,10 +44,11 @@ export const authApi = {
 
   /**
    * Send forgot password email
-   * @param {string} email
+   * @param {string|{ email: string }} email
    */
   async forgotPassword(email) {
-    return await apiClient.post(AUTH_ENDPOINTS.FORGOT_PASSWORD, { email });
+    const payload = typeof email === 'object' && email !== null ? email : { email };
+    return await apiClient.post(AUTH_ENDPOINTS.FORGOT_PASSWORD, payload);
   },
 
   /**

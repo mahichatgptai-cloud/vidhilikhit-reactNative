@@ -14,6 +14,7 @@ import {
 import colors from '../../theme/colors';
 import { spacing } from '../../theme/spacing';
 import { fontFamily } from '../../theme/typography';
+import { vw, vh, rem } from '../../theme/responsive';
 
 export const AppHeader = ({
   title,
@@ -61,17 +62,17 @@ export const AppHeader = ({
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 56,
+    height: rem(56),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: vw(4),
     backgroundColor: colors.surface,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
   },
   leftContainer: {
-    width: 44,
+    width: rem(44),
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
   },
   backButtonText: {
     fontFamily: fontFamily.bold,
-    fontSize: 22,
+    fontSize: rem(22),
     fontWeight: '700',
     color: colors.textPrimary,
   },
@@ -91,18 +92,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fontFamily.title,
-    fontSize: 17,
+    fontSize: rem(17),
     fontWeight: '700',
     color: colors.textPrimary,
   },
   subtitle: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 12,
+    fontSize: rem(12),
     color: colors.textSecondary,
     marginTop: 2,
   },
   rightContainer: {
-    width: 44,
+    width: rem(44),
     alignItems: 'flex-end',
     justifyContent: 'center',
   },

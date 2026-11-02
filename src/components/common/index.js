@@ -5,4 +5,7 @@ export { AppLoader } from './AppLoader';
 export { AppText } from './AppText';
 export { EmptyState } from './EmptyState';
 export { OrnamentalDivider } from './OrnamentalDivider';
+export { VedicDatePickerModal } from './VedicDatePickerModal';
+export { VedicTimePickerModal } from './VedicTimePickerModal';
+export { VedicLocationPickerModal } from './VedicLocationPickerModal';
 export * from './VedicIcons';

@@ -17,6 +17,7 @@ import { fontFamily } from '../../theme/typography';
 import OrnamentalDivider from '../../components/common/OrnamentalDivider';
 import { useAuthStore } from '../../store/authStore';
 import { ROUTES } from '../../navigation/navigationTypes';
+import { vw, vh, rem } from '../../theme/responsive';
 
 // Direct require ensures Metro bundler directly resolves \src\assets\images\splash_screen.png
 const splashBackground = require('../../assets/images/splash_screen.png');
@@ -120,12 +121,12 @@ const styles = StyleSheet.create({
   centerTextBlock: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: vw(5.5),
     width: '100%',
   },
   brandTitle: {
     fontFamily: fontFamily.title,
-    fontSize: 27,
+    fontSize: rem(27),
     fontWeight: '700',
     color: '#1E120A',
     letterSpacing: 2.8,
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   },
   devanagariTitle: {
     fontFamily: fontFamily.title,
-    fontSize: 22,
+    fontSize: rem(22),
     fontWeight: '700',
     color: '#1E120A',
     letterSpacing: 0.5,
@@ -141,22 +142,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   divider: {
-    marginVertical: 10,
+    marginVertical: vh(1.2),
   },
   subtitle: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 15.5,
+    fontSize: rem(15.5),
     fontWeight: '500',
     color: '#362013',
-    lineHeight: 22,
+    lineHeight: rem(22),
     textAlign: 'center',
   },
   tagline: {
     fontFamily: fontFamily.caption,
-    fontSize: 12.5,
+    fontSize: rem(12.5),
     fontWeight: '400',
     color: '#5C402E',
-    marginTop: 10,
+    marginTop: vh(1.2),
     textAlign: 'center',
   },
   bottomSpacer: {

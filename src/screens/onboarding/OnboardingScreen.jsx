@@ -8,14 +8,12 @@ import {
   View,
   FlatList,
   StyleSheet,
-  Dimensions,
   StatusBar,
 } from 'react-native';
 import { ROUTES } from '../../navigation/navigationTypes';
 import DecodeDestinySlide from './DecodeDestinySlide';
 import AstrologyInsightsSlide from './AstrologyInsightsSlide';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+import { vw } from '../../theme/responsive';
 
 export const OnboardingScreen = ({ navigation }) => {
   const flatListRef = useRef(null);
@@ -88,8 +86,8 @@ export const OnboardingScreen = ({ navigation }) => {
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         getItemLayout={(_, index) => ({
-          length: SCREEN_WIDTH,
-          offset: SCREEN_WIDTH * index,
+          length: vw(100),
+          offset: vw(100) * index,
           index,
         })}
       />

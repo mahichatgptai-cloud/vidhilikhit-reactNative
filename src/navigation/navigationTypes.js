@@ -12,12 +12,17 @@ export const ROUTES = {
   AUTH_STACK: 'AuthStack',
   REGISTER: 'Register',
   LOGIN: 'Login',
+  TELL_US_ABOUT_YOURSELF: 'TellUsAboutYourself',
+  BIRTH_TIME_ACCURACY: 'BirthTimeAccuracy',
   BIRTH_DETAILS: 'BirthDetails',
+  REVIEW_DETAILS: 'ReviewDetails',
   FORGOT_PASSWORD: 'ForgotPassword',
+  RESET_PASSWORD: 'ResetPassword',
 
   // Main App Stack
   APP_STACK: 'AppStack',
   HOME: 'Home',
+  MY_KUNDALI: 'MyKundali',
   PROFILE: 'Profile',
 };
 

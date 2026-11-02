@@ -3,7 +3,7 @@
  * User profile, settings, and session management
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -19,9 +19,14 @@ import { useAuth } from '../../hooks/useAuth';
 import colors from '../../theme/colors';
 import { spacing, borderRadius, shadows } from '../../theme/spacing';
 import { fontFamily } from '../../theme/typography';
+import { vw, vh, rem } from '../../theme/responsive';
 
 export const ProfileScreen = ({ navigation }) => {
-  const { user, logout } = useAuth();
+  const { user, logout, fetchProfile } = useAuth();
+
+  useEffect(() => {
+    fetchProfile?.();
+  }, [fetchProfile]);
 
   const handleLogoutPress = () => {
     Alert.alert('Sign Out', 'Are you sure you want to log out of Vidhilikhit?', [
@@ -123,77 +128,77 @@ export const ProfileScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   content: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    paddingBottom: spacing['2xl'],
+    paddingHorizontal: vw(5),
+    paddingTop: vh(1.5),
+    paddingBottom: vh(4),
   },
   profileCard: {
     backgroundColor: colors.card,
-    borderRadius: borderRadius.lg,
-    padding: spacing.lg,
+    borderRadius: rem(16),
+    padding: vw(5),
     alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.border,
     ...shadows.sm,
-    marginBottom: spacing.lg,
+    marginBottom: vh(2),
   },
   avatar: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
+    width: rem(72),
+    height: rem(72),
+    borderRadius: rem(36),
     backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: spacing.md,
+    marginBottom: vh(1.5),
   },
   avatarText: {
     fontFamily: fontFamily.bold,
-    fontSize: 28,
+    fontSize: rem(28),
     fontWeight: '700',
     color: colors.textInverse,
   },
   name: {
     fontFamily: fontFamily.title,
-    fontSize: 20,
+    fontSize: rem(20),
     fontWeight: '700',
     color: colors.textPrimary,
     marginBottom: 4,
   },
   email: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 14,
+    fontSize: rem(14),
     color: colors.textSecondary,
-    marginBottom: spacing.sm,
+    marginBottom: vh(1),
   },
   roleBadge: {
     backgroundColor: colors.surfaceElevated,
-    paddingHorizontal: spacing.md,
-    paddingVertical: 4,
-    borderRadius: borderRadius.full,
+    paddingHorizontal: vw(3.5),
+    paddingVertical: vh(0.5),
+    borderRadius: rem(16),
   },
   roleText: {
     fontFamily: fontFamily.bold,
-    fontSize: 11,
+    fontSize: rem(11),
     fontWeight: '700',
     color: colors.primary,
     letterSpacing: 0.5,
   },
   sectionContainer: {
-    marginBottom: spacing.md,
+    marginBottom: vh(1.8),
   },
   sectionHeader: {
     fontFamily: fontFamily.bold,
-    fontSize: 13,
+    fontSize: rem(13),
     fontWeight: '700',
     color: colors.textSecondary,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
-    marginBottom: spacing.xs,
-    marginLeft: spacing.xs,
+    marginBottom: vh(0.8),
+    marginLeft: vw(1),
   },
   cardGroup: {
     backgroundColor: colors.card,
-    borderRadius: borderRadius.md,
+    borderRadius: rem(14),
     borderWidth: 1,
     borderColor: colors.border,
     overflow: 'hidden',
@@ -203,8 +208,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 14,
-    paddingHorizontal: spacing.md,
+    paddingVertical: vh(1.6),
+    paddingHorizontal: vw(4),
   },
   menuRowBorder: {
     borderBottomWidth: 1,
@@ -215,23 +220,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   menuIcon: {
-    fontSize: 18,
-    marginRight: spacing.md,
+    fontSize: rem(18),
+    marginRight: vw(3),
   },
   menuLabel: {
     fontFamily: fontFamily.regular,
-    fontSize: 15,
+    fontSize: rem(15),
     fontWeight: '500',
     color: colors.textPrimary,
   },
   chevron: {
     fontFamily: fontFamily.bold,
-    fontSize: 20,
+    fontSize: rem(20),
     color: colors.textMuted,
     fontWeight: '600',
   },
   logoutContainer: {
-    marginTop: spacing.lg,
+    marginTop: vh(2.5),
     alignItems: 'center',
   },
   logoutBtn: {
@@ -239,9 +244,9 @@ const styles = StyleSheet.create({
   },
   appVersion: {
     fontFamily: fontFamily.light,
-    fontSize: 12,
+    fontSize: rem(12),
     color: colors.textMuted,
-    marginTop: spacing.md,
+    marginTop: vh(1.5),
   },
 });
 

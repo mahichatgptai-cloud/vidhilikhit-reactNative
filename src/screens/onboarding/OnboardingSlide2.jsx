@@ -10,15 +10,13 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { images } from '../../assets/images';
 import { fontFamily } from '../../theme/typography';
 import OrnamentalDivider from '../../components/common/OrnamentalDivider';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+import { vw, vh, rem } from '../../theme/responsive';
 
 export const OnboardingSlide2 = ({ onNext, onDotPress }) => {
   const insets = useSafeAreaInsets();
@@ -34,10 +32,10 @@ export const OnboardingSlide2 = ({ onNext, onDotPress }) => {
         <View
           style={[
             styles.topContent,
-            { paddingTop: Math.max(insets.top, 85) + 6 },
+            { paddingTop: Math.max(insets.top, vh(10)) + vh(1) },
           ]}
         >
-          {/* Main Title - reduced font size */}
+          {/* Main Title - responsive font size */}
           <Text style={styles.title}>
             {'Ancient Wisdom\nfor Modern Life'}
           </Text>
@@ -45,12 +43,12 @@ export const OnboardingSlide2 = ({ onNext, onDotPress }) => {
           {/* Ornamental Divider */}
           <OrnamentalDivider
             color="#B6936A"
-            width={105}
-            diamondSize={5.5}
+            width={vw(28)}
+            diamondSize={rem(5.5)}
             style={styles.divider}
           />
 
-          {/* Subtitle - reduced font size */}
+          {/* Subtitle - responsive font size */}
           <Text style={styles.subtitle}>
             Explore insights from Vedic astrology{'\n'}to find clarity in your journey.
           </Text>
@@ -60,7 +58,7 @@ export const OnboardingSlide2 = ({ onNext, onDotPress }) => {
         <View
           style={[
             styles.bottomContent,
-            { paddingBottom: Math.max(insets.bottom, 20) + 10 },
+            { paddingBottom: Math.max(insets.bottom, vh(3)) + vh(1.2) },
           ]}
         >
           <View style={styles.footerRow}>
@@ -105,8 +103,8 @@ export const OnboardingSlide2 = ({ onNext, onDotPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
+    width: vw(100),
+    height: vh(100),
     backgroundColor: '#D7BC9F',
   },
   backgroundImage: {
@@ -115,32 +113,32 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   topContent: {
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
     alignItems: 'center',
   },
   title: {
     fontFamily: fontFamily.title,
-    fontSize: 24,
+    fontSize: rem(24),
     fontWeight: '700',
     color: '#2A1B10',
     textAlign: 'center',
-    lineHeight: 28,
+    lineHeight: rem(29),
     letterSpacing: 0.3,
   },
   divider: {
-    marginVertical: 5,
+    marginVertical: vh(0.8),
   },
   subtitle: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 14,
+    fontSize: rem(14),
     fontWeight: '400',
     color: '#4A3525',
     textAlign: 'center',
-    lineHeight: 16.5,
-    paddingHorizontal: 16,
+    lineHeight: rem(18),
+    paddingHorizontal: vw(4),
   },
   bottomContent: {
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
     alignItems: 'center',
   },
   footerRow: {
@@ -149,18 +147,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    height: 50,
+    height: vh(6),
   },
   dotsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10,
+    gap: vw(2.5),
   },
   dot: {
-    width: 7.5,
-    height: 7.5,
-    borderRadius: 4,
+    width: rem(8),
+    height: rem(8),
+    borderRadius: rem(4),
   },
   dotActive: {
     backgroundColor: '#2A1B10',
@@ -173,9 +171,9 @@ const styles = StyleSheet.create({
   nextButton: {
     position: 'absolute',
     right: 0,
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: rem(48),
+    height: rem(48),
+    borderRadius: rem(24),
     backgroundColor: '#24180E',
     borderWidth: 1.5,
     borderColor: '#C89B53',
@@ -190,7 +188,7 @@ const styles = StyleSheet.create({
   arrowIcon: {
     fontFamily: fontFamily.bold,
     color: '#E5B869',
-    fontSize: 21,
+    fontSize: rem(21),
     fontWeight: '700',
     marginTop: -2,
   },

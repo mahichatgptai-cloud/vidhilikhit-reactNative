@@ -21,6 +21,7 @@ import { images } from '../../assets/images';
 import { fontFamily } from '../../theme/typography';
 import { ROUTES } from '../../navigation/navigationTypes';
 import { useAuth } from '../../hooks/useAuth';
+import { vw, vh, rem } from '../../theme/responsive';
 import {
   IconArrowLeft,
   IconArrowRight,
@@ -31,16 +32,24 @@ import {
   IconApple,
 } from '../../components/common/VedicIcons';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
-
-export const LoginScreen = ({ navigation }) => {
+export const LoginScreen = ({ navigation, route }) => {
   const insets = useSafeAreaInsets();
   const { login, isLoading, error } = useAuth();
 
-  const [identifier, setIdentifier] = useState('');
+  const [identifier, setIdentifier] = useState(route?.params?.prefillEmail || '');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState('');
+  const [successMessage, setSuccessMessage] = useState(route?.params?.successMessage || '');
+
+  React.useEffect(() => {
+    if (route?.params?.prefillEmail) {
+      setIdentifier(route.params.prefillEmail);
+    }
+    if (route?.params?.successMessage) {
+      setSuccessMessage(route.params.successMessage);
+    }
+  }, [route?.params?.prefillEmail, route?.params?.successMessage]);
 
   const handleLogin = async () => {
     setFormError('');
@@ -53,13 +62,22 @@ export const LoginScreen = ({ navigation }) => {
       return;
     }
 
+    const trimmedIdentifier = identifier.trim();
+    const emailToUse = trimmedIdentifier.includes('@')
+      ? trimmedIdentifier
+      : `${trimmedIdentifier.replace(/\D/g, '')}@vidhilikhit.com`;
+
     const result = await login({
-      email: identifier.includes('@') ? identifier.trim() : `${identifier.trim()}@vidhilikhit.internal`,
+      email: emailToUse,
       password,
     });
 
-    if (result?.success || !error) {
-      navigation.navigate(ROUTES.BIRTH_DETAILS);
+    if (result?.success) {
+      navigation.navigate(ROUTES.APP_STACK, {
+        screen: ROUTES.TELL_US_ABOUT_YOURSELF,
+      });
+    } else {
+      setFormError(result?.error || 'Login failed. Please check your credentials.');
     }
   };
 
@@ -102,6 +120,13 @@ export const LoginScreen = ({ navigation }) => {
             <Text style={styles.title}>Welcome Back</Text>
             <Text style={styles.subtitle}>Enter your details to sign in to Vidhilikhit</Text>
           </View>
+
+          {/* Success Banner */}
+          {successMessage ? (
+            <View style={styles.successBanner}>
+              <Text style={styles.successText}>{successMessage}</Text>
+            </View>
+          ) : null}
 
           {/* Error Banner */}
           {(formError || error) ? (
@@ -227,39 +252,39 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
     alignItems: 'center',
   },
   headerBar: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: vh(0.5),
   },
   backButton: {
-    width: 36,
-    height: 36,
+    width: vw(9),
+    height: vw(9),
     justifyContent: 'center',
   },
   celestialIllustrationContainer: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 120,
-    marginTop: -8,
+    height: vh(14),
+    marginTop: -vh(1),
   },
   celestialImage: {
-    width: Math.min(SCREEN_WIDTH * 0.72, 280),
+    width: vw(68),
     height: '100%',
   },
   titleSection: {
     alignItems: 'center',
-    marginTop: 176,
-    marginBottom: 20,
+    marginTop: vh(18),
+    marginBottom: vh(2.2),
   },
   title: {
     fontFamily: fontFamily.title,
-    fontSize: 25,
+    fontSize: rem(25),
     fontWeight: '700',
     color: '#693917',
     textAlign: 'center',
@@ -270,78 +295,96 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 13.5,
+    fontSize: rem(13.5),
     fontWeight: '400',
     color: '#693917',
     textAlign: 'center',
-    marginTop: 4,
+    marginTop: vh(0.5),
     textShadowColor: '#ffffff',
     textShadowOffset: { width: 0, height: 1.5 },
     textShadowRadius: 2,
+  },
+  successBanner: {
+    width: '100%',
+    backgroundColor: 'rgba(76, 175, 80, 0.15)',
+    borderWidth: 1,
+    borderColor: '#4CAF50',
+    borderRadius: rem(8),
+    padding: vw(2.5),
+    marginBottom: vh(1.2),
+  },
+  successText: {
+    fontFamily: fontFamily.regular,
+    color: '#2E7D32',
+    fontSize: rem(12.5),
+    textAlign: 'center',
+    fontWeight: '600',
   },
   errorBanner: {
     width: '100%',
     backgroundColor: 'rgba(217, 83, 79, 0.15)',
     borderWidth: 1,
     borderColor: '#D9534F',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 12,
+    borderRadius: rem(8),
+    padding: vw(2.5),
+    marginBottom: vh(1.2),
   },
   errorText: {
     fontFamily: fontFamily.regular,
     color: '#A94442',
-    fontSize: 12.5,
+    fontSize: rem(12.5),
     textAlign: 'center',
   },
   formContainer: {
     width: '100%',
-    gap: 12,
+    gap: vh(1.4),
   },
   inputCard: {
     width: '100%',
-    height: 50,
-    borderRadius: 12,
+    height: vh(6),
+    minHeight: rem(46),
+    borderRadius: rem(12),
     backgroundColor: 'rgba(255, 250, 242, 0.65)',
     borderWidth: 1.2,
     borderColor: '#D8C2A8',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 14,
+    paddingHorizontal: vw(3.5),
   },
   inputIconBox: {
-    width: 26,
+    width: vw(6.5),
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 8,
+    marginRight: vw(2),
   },
   input: {
     flex: 1,
     fontFamily: fontFamily.regular,
-    fontSize: 14,
+    fontSize: rem(14),
     color: '#26160C',
     paddingVertical: 0,
   },
   passwordToggle: {
-    width: 30,
+    width: vw(7.5),
     alignItems: 'center',
     justifyContent: 'center',
   },
   forgotPasswordContainer: {
     alignItems: 'flex-end',
-    marginTop: 2,
-    marginBottom: 4,
+    marginTop: vh(0.4),
+    marginBottom: vh(0.6),
   },
   forgotPasswordText: {
     fontFamily: fontFamily.bold,
-    fontSize: 13,
+    fontSize: rem(13),
     fontWeight: '700',
     color: '#154A4E',
   },
   signInButton: {
     width: '100%',
-    height: 52,
-    borderRadius: 26,
+    height: vh(6.2),
+    minHeight: rem(48),
+    borderRadius: rem(26),
     backgroundColor: '#083236',
     borderWidth: 1.5,
     borderColor: '#D4A853',
@@ -352,18 +395,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.28,
     shadowRadius: 8,
     elevation: 6,
-    marginTop: 4,
+    marginTop: vh(0.6),
   },
   buttonContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: vw(2),
   },
   signInButtonText: {
     fontFamily: fontFamily.bold,
     color: '#F2E2BE',
-    fontSize: 16.5,
+    fontSize: rem(16.5),
     fontWeight: '700',
     letterSpacing: 0.4,
   },
@@ -371,7 +414,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 18,
+    marginVertical: vh(2),
   },
   dividerLine: {
     flex: 1,
@@ -380,30 +423,31 @@ const styles = StyleSheet.create({
   },
   dividerText: {
     fontFamily: fontFamily.regular,
-    fontSize: 12,
+    fontSize: rem(12),
     color: '#7A5E48',
-    marginHorizontal: 12,
+    marginHorizontal: vw(3),
   },
   socialRow: {
     width: '100%',
     flexDirection: 'row',
-    gap: 12,
+    gap: vw(3),
   },
   socialButton: {
     flex: 1,
-    height: 46,
-    borderRadius: 23,
+    height: vh(5.6),
+    minHeight: rem(44),
+    borderRadius: rem(22),
     backgroundColor: 'rgba(255, 250, 242, 0.75)',
     borderWidth: 1.2,
     borderColor: '#D8C2A8',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: vw(2),
   },
   socialButtonText: {
     fontFamily: fontFamily.bold,
-    fontSize: 14,
+    fontSize: rem(14),
     fontWeight: '700',
     color: '#26160C',
   },
@@ -411,16 +455,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 22,
+    marginTop: vh(2.5),
   },
   footerPrompt: {
     fontFamily: fontFamily.regular,
-    fontSize: 13.5,
+    fontSize: rem(13.5),
     color: '#5E4432',
   },
   signUpLink: {
     fontFamily: fontFamily.bold,
-    fontSize: 13.5,
+    fontSize: rem(13.5),
     fontWeight: '700',
     color: '#154A4E',
     textDecorationLine: 'underline',

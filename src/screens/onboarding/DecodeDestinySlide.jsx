@@ -9,15 +9,13 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { images } from '../../assets/images';
 import { fontFamily } from '../../theme/typography';
 import OrnamentalDivider from '../../components/common/OrnamentalDivider';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+import { vw, vh, rem } from '../../theme/responsive';
 
 export const DecodeDestinySlide = ({ onNext, onSkip, onDotPress }) => {
   const insets = useSafeAreaInsets();
@@ -30,7 +28,7 @@ export const DecodeDestinySlide = ({ onNext, onSkip, onDotPress }) => {
         resizeMode="cover"
       >
         {/* Header Bar: Centered 3 Dots + Top-Right Skip Button */}
-        <View style={[styles.headerBar, { paddingTop: Math.max(insets.top, 100) + 8 }]}>
+        <View style={[styles.headerBar, { paddingTop: Math.max(insets.top, vh(11)) + vh(1) }]}>
           <View style={styles.headerLeftSpacer} />
 
           {/* 3 Pagination Dots */}
@@ -74,8 +72,8 @@ export const DecodeDestinySlide = ({ onNext, onSkip, onDotPress }) => {
 
           <OrnamentalDivider
             color="#B39268"
-            width={110}
-            diamondSize={5.5}
+            width={vw(28)}
+            diamondSize={rem(5.5)}
             style={styles.divider}
           />
 
@@ -88,7 +86,7 @@ export const DecodeDestinySlide = ({ onNext, onSkip, onDotPress }) => {
         <View style={styles.centerSpacer} />
 
         {/* Bottom Button Section: Wide "Next →" Pill */}
-        <View style={[styles.bottomSection, { paddingBottom: Math.max(insets.bottom, 20) + 12 }]}>
+        <View style={[styles.bottomSection, { paddingBottom: Math.max(insets.bottom, vh(2.5)) + vh(1.2) }]}>
           <TouchableOpacity
             style={styles.nextButton}
             onPress={onNext}
@@ -109,8 +107,8 @@ export const DecodeDestinySlide = ({ onNext, onSkip, onDotPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
+    width: vw(100),
+    height: vh(100),
     backgroundColor: '#D7BC9F',
   },
   backgroundImage: {
@@ -123,23 +121,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    height: 48,
+    paddingHorizontal: vw(6),
+    height: vh(5.8),
   },
   headerLeftSpacer: {
-    width: 48,
+    width: rem(48),
   },
   dotsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    marginBottom:70
+    gap: vw(2),
+    marginBottom: vh(7),
   },
   dot: {
-    width: 7,
-    height: 7,
-    borderRadius: 3.5,
+    width: rem(7.5),
+    height: rem(7.5),
+    borderRadius: rem(3.75),
   },
   dotActive: {
     backgroundColor: '#26160C',
@@ -150,52 +148,53 @@ const styles = StyleSheet.create({
     borderColor: '#6B4A30',
   },
   skipButton: {
-    width: 48,
+    width: rem(48),
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
   skipText: {
     fontFamily: fontFamily.bold,
-    fontSize: 14,
+    fontSize: rem(14),
     fontWeight: '600',
     color: '#5E4432',
   },
   topTextSection: {
     alignItems: 'center',
-    paddingHorizontal: 24,
-    marginTop: 4,
+    paddingHorizontal: vw(6),
+    marginTop: vh(0.5),
   },
   title: {
     fontFamily: fontFamily.title,
-    fontSize: 24,
+    fontSize: rem(24),
     fontWeight: '700',
     color: '#26160C',
     textAlign: 'center',
-    lineHeight: 33,
+    lineHeight: rem(32),
     letterSpacing: 0.3,
   },
   divider: {
-    marginVertical: 8,
+    marginVertical: vh(1),
   },
   subtitle: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 14,
+    fontSize: rem(14),
     color: '#4A3525',
     textAlign: 'center',
-    lineHeight: 19,
-    paddingHorizontal: 12,
+    lineHeight: rem(19),
+    paddingHorizontal: vw(3),
   },
   centerSpacer: {
     flex: 1,
   },
   bottomSection: {
     width: '100%',
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
   },
   nextButton: {
     width: '100%',
-    height: 52,
-    borderRadius: 26,
+    height: vh(6.2),
+    minHeight: rem(48),
+    borderRadius: rem(26),
     backgroundColor: '#083236',
     borderWidth: 1.5,
     borderColor: '#D4A853',
@@ -211,19 +210,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: vw(2),
   },
   buttonText: {
     fontFamily: fontFamily.bold,
     color: '#F2E2BE',
-    fontSize: 16.5,
+    fontSize: rem(16.5),
     fontWeight: '700',
     letterSpacing: 0.4,
   },
   buttonArrow: {
     fontFamily: fontFamily.bold,
     color: '#F2E2BE',
-    fontSize: 18,
+    fontSize: rem(18),
     fontWeight: '700',
     marginTop: -1,
   },

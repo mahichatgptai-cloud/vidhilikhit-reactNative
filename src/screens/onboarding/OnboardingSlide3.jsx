@@ -10,15 +10,13 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { images } from '../../assets/images';
 import { fontFamily } from '../../theme/typography';
 import OrnamentalDivider from '../../components/common/OrnamentalDivider';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+import { vw, vh, rem } from '../../theme/responsive';
 
 export const OnboardingSlide3 = ({ onGetStarted, onDotPress }) => {
   const insets = useSafeAreaInsets();
@@ -34,23 +32,23 @@ export const OnboardingSlide3 = ({ onGetStarted, onDotPress }) => {
         <View
           style={[
             styles.topContent,
-            { paddingTop: Math.max(insets.top, 80) + 6 },
+            { paddingTop: Math.max(insets.top, vh(9.5)) + vh(1) },
           ]}
         >
-          {/* Main Title - reduced font size */}
+          {/* Main Title - responsive font size */}
           <Text style={styles.title}>
             {'Your Personal\nKundali'}
           </Text>
 
-          {/* Ornamental Divider - compact */}
+          {/* Ornamental Divider - responsive */}
           <OrnamentalDivider
             color="#B6936A"
-            width={105}
-            diamondSize={5.5}
+            width={vw(28)}
+            diamondSize={rem(5.5)}
             style={styles.divider}
           />
 
-          {/* Subtitle - reduced font size, no overlap on kundali */}
+          {/* Subtitle - responsive font size, no overlap on kundali */}
           <Text style={styles.subtitle}>
             Discover your unique birth chart and{'\n'}deep insights about your personality,{'\n'}strengths, challenges and life path.
           </Text>
@@ -60,7 +58,7 @@ export const OnboardingSlide3 = ({ onGetStarted, onDotPress }) => {
         <View
           style={[
             styles.bottomContent,
-            { paddingBottom: Math.max(insets.bottom, 20) + 10 },
+            { paddingBottom: Math.max(insets.bottom, vh(3)) + vh(1.2) },
           ]}
         >
           {/* 3 Pagination Dots */}
@@ -106,8 +104,8 @@ export const OnboardingSlide3 = ({ onGetStarted, onDotPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
+    width: vw(100),
+    height: vh(100),
     backgroundColor: '#D7BC9F',
   },
   backgroundImage: {
@@ -116,32 +114,32 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   topContent: {
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
     alignItems: 'center',
   },
   title: {
     fontFamily: fontFamily.title,
-    fontSize: 24,
+    fontSize: rem(24),
     fontWeight: '700',
     color: '#2A1B10',
     textAlign: 'center',
-    lineHeight: 28,
+    lineHeight: rem(29),
     letterSpacing: 0.3,
   },
   divider: {
-    marginVertical: 5,
+    marginVertical: vh(0.8),
   },
   subtitle: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 14,
+    fontSize: rem(14),
     fontWeight: '400',
     color: '#4A3525',
     textAlign: 'center',
-    lineHeight: 16.5,
-    paddingHorizontal: 12,
+    lineHeight: rem(18),
+    paddingHorizontal: vw(3),
   },
   bottomContent: {
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
     alignItems: 'center',
     width: '100%',
   },
@@ -149,13 +147,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10,
-    marginBottom: 16,
+    gap: vw(2.5),
+    marginBottom: vh(2),
   },
   dot: {
-    width: 7.5,
-    height: 7.5,
-    borderRadius: 4,
+    width: rem(8),
+    height: rem(8),
+    borderRadius: rem(4),
   },
   dotActive: {
     backgroundColor: '#2A1B10',
@@ -167,8 +165,9 @@ const styles = StyleSheet.create({
   },
   getStartedButton: {
     width: '100%',
-    height: 50,
-    borderRadius: 25,
+    height: vh(6.2),
+    minHeight: rem(48),
+    borderRadius: rem(25),
     backgroundColor: '#083236',
     borderWidth: 1.5,
     borderColor: '#D4A853',
@@ -184,19 +183,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: vw(2),
   },
   buttonText: {
     fontFamily: fontFamily.bold,
     color: '#F2E2BE',
-    fontSize: 16,
+    fontSize: rem(16),
     fontWeight: '700',
     letterSpacing: 0.4,
   },
   buttonArrow: {
     fontFamily: fontFamily.bold,
     color: '#F2E2BE',
-    fontSize: 17,
+    fontSize: rem(17),
     fontWeight: '700',
     marginTop: -1,
   },

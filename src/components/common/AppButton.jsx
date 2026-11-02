@@ -14,6 +14,7 @@ import {
 import colors from '../../theme/colors';
 import { borderRadius, spacing } from '../../theme/spacing';
 import { fontFamily } from '../../theme/typography';
+import { vw, vh, rem } from '../../theme/responsive';
 
 export const AppButton = ({
   title,
@@ -84,7 +85,7 @@ export const AppButton = ({
 
 const styles = StyleSheet.create({
   base: {
-    borderRadius: borderRadius.md,
+    borderRadius: rem(12),
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -95,20 +96,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconContainer: {
-    marginRight: spacing.sm,
+    marginRight: vw(2),
   },
   // Sizes
   size_sm: {
-    paddingVertical: 8,
-    paddingHorizontal: spacing.md,
+    paddingVertical: vh(0.8),
+    paddingHorizontal: vw(3.5),
   },
   size_md: {
-    paddingVertical: 14,
-    paddingHorizontal: spacing.lg,
+    paddingVertical: vh(1.4),
+    paddingHorizontal: vw(4.5),
   },
   size_lg: {
-    paddingVertical: 18,
-    paddingHorizontal: spacing.xl,
+    paddingVertical: vh(1.8),
+    paddingHorizontal: vw(6),
   },
   // Variants
   variantPrimary: {
@@ -146,13 +147,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   textSize_sm: {
-    fontSize: 13,
+    fontSize: rem(13),
   },
   textSize_md: {
-    fontSize: 15,
+    fontSize: rem(15),
   },
   textSize_lg: {
-    fontSize: 17,
+    fontSize: rem(17),
   },
 });
 

@@ -18,11 +18,17 @@ export class ApiError extends Error {
     if (error.response) {
       // Server responded with non-2xx status
       const data = error.response.data;
-      const message =
+      let message =
         data?.message ||
         data?.error ||
         error.message ||
         'An error occurred on the server.';
+
+      if (Array.isArray(data?.errors) && data.errors.length > 0) {
+        const details = data.errors.map((e) => e.message || `${e.field || 'Field'} is invalid`).join('. ');
+        message = details || message;
+      }
+
       const statusCode = error.response.status;
       const code = data?.code || `HTTP_${statusCode}`;
 

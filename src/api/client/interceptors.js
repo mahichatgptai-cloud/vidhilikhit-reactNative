@@ -45,8 +45,15 @@ export const setupInterceptors = (axiosInstance) => {
     async (error) => {
       const originalRequest = error.config;
 
+      const url = originalRequest?.url || '';
+      const isAuthEndpoint =
+        url.includes('/auth/login') ||
+        url.includes('/auth/register') ||
+        url.includes('/auth/forgot-password') ||
+        url.includes('/auth/reset-password');
+
       // Handle 401 Unauthorized - Attempt Token Refresh
-      if (error.response?.status === 401 && !originalRequest?._retry) {
+      if (error.response?.status === 401 && !originalRequest?._retry && !isAuthEndpoint) {
         originalRequest._retry = true;
         try {
           const refreshToken = await tokenService.getRefreshToken();

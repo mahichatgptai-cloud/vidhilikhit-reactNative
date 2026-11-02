@@ -9,7 +9,6 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Dimensions,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
@@ -23,33 +22,32 @@ import {
   IconBriefcase,
   IconLotus,
 } from '../../components/common/VedicIcons';
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+import { vw, vh, rem } from '../../theme/responsive';
 
 const INSIGHT_ITEMS = [
   {
     id: 'understand',
     title: 'Understand Yourself',
     description: 'Discover your strengths, weaknesses and true potential.',
-    renderIcon: () => <IconTrend size={22} color="#E5B869" />,
+    renderIcon: () => <IconTrend size={rem(22)} color="#E5B869" />,
   },
   {
     id: 'relationships',
     title: 'Better Relationships',
     description: 'Find compatibility and build stronger connections.',
-    renderIcon: () => <IconHeart size={22} color="#E5B869" />,
+    renderIcon: () => <IconHeart size={rem(22)} color="#E5B869" />,
   },
   {
     id: 'career',
     title: 'Career Guidance',
     description: 'Make informed decisions for a successful future.',
-    renderIcon: () => <IconBriefcase size={22} color="#E5B869" />,
+    renderIcon: () => <IconBriefcase size={rem(22)} color="#E5B869" />,
   },
   {
     id: 'clarity',
     title: 'Life Clarity',
     description: 'Get answers to important questions and navigate challenges with wisdom.',
-    renderIcon: () => <IconLotus size={22} color="#E5B869" />,
+    renderIcon: () => <IconLotus size={rem(22)} color="#E5B869" />,
   },
 ];
 
@@ -64,7 +62,7 @@ export const AstrologyInsightsSlide = ({ onNext, onSkip, onDotPress }) => {
         resizeMode="cover"
       >
         {/* Header Bar: Centered 3 Dots + Top-Right Skip Button */}
-        <View style={[styles.headerBar, { paddingTop: Math.max(insets.top, 100) + 8 }]}>
+        <View style={[styles.headerBar, { paddingTop: Math.max(insets.top, vh(11)) + vh(1) }]}>
           <View style={styles.headerLeftSpacer} />
 
           {/* 3 Pagination Dots */}
@@ -108,8 +106,8 @@ export const AstrologyInsightsSlide = ({ onNext, onSkip, onDotPress }) => {
 
           <OrnamentalDivider
             color="#B39268"
-            width={110}
-            diamondSize={5.5}
+            width={vw(28)}
+            diamondSize={rem(5.5)}
             style={styles.divider}
           />
         </View>
@@ -138,7 +136,7 @@ export const AstrologyInsightsSlide = ({ onNext, onSkip, onDotPress }) => {
         </ScrollView>
 
         {/* Bottom Section: Wide "Next →" Pill */}
-        <View style={[styles.bottomSection, { paddingBottom: Math.max(insets.bottom, 20) + 12 }]}>
+        <View style={[styles.bottomSection, { paddingBottom: Math.max(insets.bottom, vh(2.5)) + vh(1.2) }]}>
           <TouchableOpacity
             style={styles.nextButton}
             onPress={onNext}
@@ -159,8 +157,8 @@ export const AstrologyInsightsSlide = ({ onNext, onSkip, onDotPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
+    width: vw(100),
+    height: vh(100),
     backgroundColor: '#D7BC9F',
   },
   backgroundImage: {
@@ -173,23 +171,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    height: 48,
+    paddingHorizontal: vw(6),
+    height: vh(5.8),
   },
   headerLeftSpacer: {
-    width: 48,
+    width: rem(48),
   },
   dotsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    marginBottom:70
+    gap: vw(2),
+    marginBottom: vh(7),
   },
   dot: {
-    width: 7,
-    height: 7,
-    borderRadius: 3.5,
+    width: rem(7.5),
+    height: rem(7.5),
+    borderRadius: rem(3.75),
   },
   dotActive: {
     backgroundColor: '#26160C',
@@ -200,56 +198,56 @@ const styles = StyleSheet.create({
     borderColor: '#6B4A30',
   },
   skipButton: {
-    width: 48,
+    width: rem(48),
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
   skipText: {
     fontFamily: fontFamily.bold,
-    fontSize: 14,
+    fontSize: rem(14),
     fontWeight: '600',
     color: '#5E4432',
   },
   topTextSection: {
     alignItems: 'center',
-    paddingHorizontal: 24,
-    marginTop: 4,
+    paddingHorizontal: vw(6),
+    marginTop: vh(0.5),
   },
   title: {
     fontFamily: fontFamily.title,
-    fontSize: 26,
+    fontSize: rem(26),
     fontWeight: '700',
     color: '#26160C',
     textAlign: 'center',
-    lineHeight: 33,
+    lineHeight: rem(33),
     letterSpacing: 0.3,
   },
   divider: {
-    marginVertical: 8,
+    marginVertical: vh(1),
   },
   featuresList: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
   },
   featuresContent: {
-    paddingVertical: 8,
-    gap: 16,
+    paddingVertical: vh(1),
+    gap: vh(1.8),
   },
   featureRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 4,
+    paddingVertical: vh(0.5),
   },
   iconBadge: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: rem(48),
+    height: rem(48),
+    borderRadius: rem(24),
     backgroundColor: '#082529',
     borderWidth: 1.5,
     borderColor: '#D4A359',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 16,
+    marginRight: vw(4),
     shadowColor: '#D4A359',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -261,7 +259,7 @@ const styles = StyleSheet.create({
   },
   featureTitle: {
     fontFamily: fontFamily.title,
-    fontSize: 16,
+    fontSize: rem(16),
     fontWeight: '700',
     color: '#26160C',
     marginBottom: 2,
@@ -269,18 +267,19 @@ const styles = StyleSheet.create({
   },
   featureDescription: {
     fontFamily: fontFamily.regular,
-    fontSize: 12.5,
+    fontSize: rem(12.5),
     color: '#4E3726',
-    lineHeight: 17,
+    lineHeight: rem(17),
   },
   bottomSection: {
     width: '100%',
-    paddingHorizontal: 24,
+    paddingHorizontal: vw(6),
   },
   nextButton: {
     width: '100%',
-    height: 52,
-    borderRadius: 26,
+    height: vh(6.2),
+    minHeight: rem(48),
+    borderRadius: rem(26),
     backgroundColor: '#083236',
     borderWidth: 1.5,
     borderColor: '#D4A853',
@@ -296,19 +295,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: vw(2),
   },
   buttonText: {
     fontFamily: fontFamily.bold,
     color: '#F2E2BE',
-    fontSize: 16.5,
+    fontSize: rem(16.5),
     fontWeight: '700',
     letterSpacing: 0.4,
   },
   buttonArrow: {
     fontFamily: fontFamily.bold,
     color: '#F2E2BE',
-    fontSize: 18,
+    fontSize: rem(18),
     fontWeight: '700',
     marginTop: -1,
   },

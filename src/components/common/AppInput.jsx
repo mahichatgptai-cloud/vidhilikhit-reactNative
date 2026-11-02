@@ -14,6 +14,7 @@ import {
 import colors from '../../theme/colors';
 import { borderRadius, spacing } from '../../theme/spacing';
 import { fontFamily } from '../../theme/typography';
+import { vw, vh, rem } from '../../theme/responsive';
 
 export const AppInput = ({
   label,
@@ -93,15 +94,15 @@ export const AppInput = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: spacing.md,
+    marginBottom: vh(1.8),
     width: '100%',
   },
   label: {
     fontFamily: fontFamily.bold,
-    fontSize: 14,
+    fontSize: rem(14),
     fontWeight: '600',
     color: colors.textPrimary,
-    marginBottom: spacing.xs,
+    marginBottom: vh(0.6),
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -109,9 +110,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderWidth: 1.5,
     borderColor: colors.border,
-    borderRadius: borderRadius.md,
-    paddingHorizontal: spacing.md,
-    height: 50,
+    borderRadius: rem(12),
+    paddingHorizontal: vw(3.5),
+    height: rem(50),
   },
   inputWrapperFocused: {
     borderColor: colors.primary,
@@ -126,36 +127,36 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontFamily: fontFamily.regular,
-    fontSize: 15,
+    fontSize: rem(15),
     color: colors.textPrimary,
     paddingVertical: 0,
   },
   leftIconContainer: {
-    marginRight: spacing.sm,
+    marginRight: vw(2.5),
   },
   rightIconContainer: {
-    marginLeft: spacing.sm,
+    marginLeft: vw(2.5),
   },
   toggleButton: {
-    paddingHorizontal: spacing.xs,
-    paddingVertical: spacing.xs,
+    paddingHorizontal: vw(1.5),
+    paddingVertical: vh(0.5),
   },
   toggleText: {
     fontFamily: fontFamily.bold,
-    fontSize: 13,
+    fontSize: rem(13),
     color: colors.primary,
     fontWeight: '600',
   },
   errorText: {
     fontFamily: fontFamily.regular,
-    fontSize: 12,
+    fontSize: rem(12),
     color: colors.error,
     marginTop: 4,
     marginLeft: 2,
   },
   helperText: {
     fontFamily: fontFamily.light,
-    fontSize: 12,
+    fontSize: rem(12),
     color: colors.textSecondary,
     marginTop: 4,
     marginLeft: 2,

@@ -13,6 +13,10 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
 import BirthDetailsScreen from '../screens/onboarding/BirthDetailsScreen';
+import TellUsAboutYourselfScreen from '../screens/onboarding/TellUsAboutYourselfScreen';
+import BirthTimeAccuracyScreen from '../screens/onboarding/BirthTimeAccuracyScreen';
+import ReviewDetailsScreen from '../screens/onboarding/ReviewDetailsScreen';
+import HomeScreen from '../screens/home/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,8 +28,13 @@ export const AuthNavigator = () => {
       <Stack.Screen name={ROUTES.ONBOARDING} component={OnboardingScreen} />
       <Stack.Screen name={ROUTES.REGISTER} component={RegisterScreen} />
       <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen} />
+      <Stack.Screen name={ROUTES.TELL_US_ABOUT_YOURSELF} component={TellUsAboutYourselfScreen} />
+      <Stack.Screen name={ROUTES.BIRTH_TIME_ACCURACY} component={BirthTimeAccuracyScreen} />
       <Stack.Screen name={ROUTES.BIRTH_DETAILS} component={BirthDetailsScreen} />
+      <Stack.Screen name={ROUTES.REVIEW_DETAILS} component={ReviewDetailsScreen} />
+      <Stack.Screen name={ROUTES.HOME} component={HomeScreen} />
       <Stack.Screen name={ROUTES.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
+      <Stack.Screen name={ROUTES.RESET_PASSWORD} component={ForgotPasswordScreen} />
     </Stack.Navigator>
   );
 };

@@ -17,12 +17,17 @@ import { APP_ROUTES } from '../../utils/constants';
 import colors from '../../theme/colors';
 import { spacing, borderRadius } from '../../theme/spacing';
 import { fontFamily } from '../../theme/typography';
+import { vw, vh, rem } from '../../theme/responsive';
 
-export const ForgotPasswordScreen = ({ navigation }) => {
+export const ForgotPasswordScreen = ({ navigation, route }) => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [token, setToken] = useState(route?.params?.token || '');
+  const [newPassword, setNewPassword] = useState('');
+  const [resetSuccess, setResetSuccess] = useState(false);
+  const [showResetForm, setShowResetForm] = useState(Boolean(route?.params?.token));
 
   const handleSubmit = async () => {
     setError(null);
@@ -37,11 +42,40 @@ export const ForgotPasswordScreen = ({ navigation }) => {
 
     try {
       setLoading(true);
-      await authApi.forgotPassword(email.trim());
+      const res = await authApi.forgotPassword(email.trim());
       setIsSubmitted(true);
+      const devToken = res?.data?.devDebug?.rawToken;
+      if (devToken) {
+        setToken(devToken);
+        setShowResetForm(true);
+      }
     } catch (err) {
-      // Allow graceful simulated response for local/offline testing
-      setIsSubmitted(true);
+      setError(err.message || 'Failed to dispatch password reset request.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    setError(null);
+    if (!token.trim()) {
+      setError('Please enter the reset token.');
+      return;
+    }
+    if (!newPassword || newPassword.length < 6) {
+      setError('New password must be at least 6 characters long.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await authApi.resetPassword({
+        token: token.trim(),
+        newPassword,
+      });
+      setResetSuccess(true);
+    } catch (err) {
+      setError(err.message || 'Failed to reset password. Please check the token.');
     } finally {
       setLoading(false);
     }
@@ -55,7 +89,22 @@ export const ForgotPasswordScreen = ({ navigation }) => {
       />
       <KeyboardWrapper>
         <View style={styles.content}>
-          {isSubmitted ? (
+          {resetSuccess ? (
+            <View style={styles.successContainer}>
+              <View style={styles.successIconBadge}>
+                <Text style={styles.successIcon}>✓</Text>
+              </View>
+              <Text style={styles.successTitle}>Password Reset Successful</Text>
+              <Text style={styles.successMessage}>
+                Password has been reset successfully. You may now log in with your new password.
+              </Text>
+              <AppButton
+                title="Back to Sign In"
+                onPress={() => navigation.navigate(APP_ROUTES.LOGIN)}
+                style={styles.backBtn}
+              />
+            </View>
+          ) : isSubmitted ? (
             <View style={styles.successContainer}>
               <View style={styles.successIconBadge}>
                 <Text style={styles.successIcon}>✓</Text>
@@ -65,9 +114,55 @@ export const ForgotPasswordScreen = ({ navigation }) => {
                 We have sent password reset instructions to{' '}
                 <Text style={styles.boldEmail}>{email}</Text>. Please follow the link in that email.
               </Text>
+
+              {showResetForm ? (
+                <View style={[styles.formContainer, { marginTop: spacing.md }]}>
+                  {error ? (
+                    <ErrorMessage message={error} onDismiss={() => setError(null)} />
+                  ) : null}
+
+                  <AppInput
+                    label="Reset Token"
+                    placeholder="Enter reset token"
+                    value={token}
+                    onChangeText={(t) => {
+                      setToken(t);
+                      if (error) setError(null);
+                    }}
+                    autoCapitalize="none"
+                  />
+
+                  <AppInput
+                    label="New Password"
+                    placeholder="Enter new password (min. 6 chars)"
+                    value={newPassword}
+                    onChangeText={(p) => {
+                      setNewPassword(p);
+                      if (error) setError(null);
+                    }}
+                    secureTextEntry
+                  />
+
+                  <AppButton
+                    title="Set New Password"
+                    onPress={handleResetPassword}
+                    loading={loading}
+                    style={styles.submitBtn}
+                  />
+                </View>
+              ) : (
+                <AppButton
+                  title="Have a Reset Token? Set New Password"
+                  onPress={() => setShowResetForm(true)}
+                  variant="outline"
+                  style={[styles.backBtn, { marginBottom: spacing.sm }]}
+                />
+              )}
+
               <AppButton
                 title="Back to Sign In"
                 onPress={() => navigation.navigate(APP_ROUTES.LOGIN)}
+                variant="ghost"
                 style={styles.backBtn}
               />
             </View>
@@ -118,8 +213,8 @@ export const ForgotPasswordScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.xl,
+    paddingHorizontal: vw(6),
+    paddingVertical: vh(3),
     justifyContent: 'center',
   },
   formContainer: {
@@ -127,57 +222,57 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: fontFamily.title,
-    fontSize: 24,
+    fontSize: rem(24),
     fontWeight: '700',
     color: colors.textPrimary,
-    marginBottom: spacing.xs,
+    marginBottom: vh(0.8),
   },
   subtitle: {
     fontFamily: fontFamily.subtitle,
-    fontSize: 14,
+    fontSize: rem(14),
     color: colors.textSecondary,
-    marginBottom: spacing.lg,
-    lineHeight: 20,
+    marginBottom: vh(2.5),
+    lineHeight: rem(20),
   },
   submitBtn: {
-    marginTop: spacing.sm,
+    marginTop: vh(1),
   },
   cancelBtn: {
-    marginTop: spacing.xs,
+    marginTop: vh(0.8),
   },
   successContainer: {
     alignItems: 'center',
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: vw(4),
   },
   successIconBadge: {
-    width: 68,
-    height: 68,
-    borderRadius: borderRadius.full,
+    width: vw(16),
+    height: vw(16),
+    borderRadius: vw(8),
     backgroundColor: colors.successLight,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: spacing.lg,
+    marginBottom: vh(2),
   },
   successIcon: {
     fontFamily: fontFamily.bold,
-    fontSize: 32,
+    fontSize: rem(30),
     color: colors.success,
     fontWeight: 'bold',
   },
   successTitle: {
     fontFamily: fontFamily.title,
-    fontSize: 22,
+    fontSize: rem(22),
     fontWeight: '700',
     color: colors.textPrimary,
-    marginBottom: spacing.sm,
+    marginBottom: vh(1),
   },
   successMessage: {
     fontFamily: fontFamily.regular,
-    fontSize: 14,
+    fontSize: rem(14),
     color: colors.textSecondary,
     textAlign: 'center',
-    lineHeight: 22,
-    marginBottom: spacing.xl,
+    lineHeight: rem(22),
+    marginBottom: vh(3),
   },
   boldEmail: {
     fontFamily: fontFamily.bold,

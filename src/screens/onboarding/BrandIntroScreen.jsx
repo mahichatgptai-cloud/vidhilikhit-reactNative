@@ -11,15 +11,13 @@ import {
   View,
   FlatList,
   StyleSheet,
-  Dimensions,
   StatusBar,
 } from 'react-native';
 import { ROUTES } from '../../navigation/navigationTypes';
 import OnboardingSlide1 from './OnboardingSlide1';
 import OnboardingSlide2 from './OnboardingSlide2';
 import OnboardingSlide3 from './OnboardingSlide3';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+import { vw } from '../../theme/responsive';
 
 export const BrandIntroScreen = ({ navigation }) => {
   const flatListRef = useRef(null);
@@ -104,8 +102,8 @@ export const BrandIntroScreen = ({ navigation }) => {
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         getItemLayout={(_, index) => ({
-          length: SCREEN_WIDTH,
-          offset: SCREEN_WIDTH * index,
+          length: vw(100),
+          offset: vw(100) * index,
           index,
         })}
       />

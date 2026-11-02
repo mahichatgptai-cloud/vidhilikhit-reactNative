@@ -14,6 +14,7 @@ export const linking = {
           [ROUTES.LOGIN]: 'login',
           [ROUTES.REGISTER]: 'register',
           [ROUTES.FORGOT_PASSWORD]: 'forgot-password',
+          [ROUTES.RESET_PASSWORD]: 'reset-password',
         },
       },
       [ROUTES.APP_STACK]: {

@@ -5,7 +5,7 @@
 export const ENV = {
   APP_NAME: 'vidhilikhit',
   APP_ENV: 'development', // 'development' | 'staging' | 'production'
-  API_BASE_URL: 'https://api.example.com/v1',
+  API_BASE_URL: 'http://ec2-3-25-116-172.ap-southeast-2.compute.amazonaws.com/api/v1',
   API_TIMEOUT: 15000,
   ENABLE_LOGS: true,
   ENABLE_ANALYTICS: false,

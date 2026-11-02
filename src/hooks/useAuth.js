@@ -14,6 +14,9 @@ export const useAuth = () => {
   const login = useAuthStore((state) => state.login);
   const register = useAuthStore((state) => state.register);
   const logout = useAuthStore((state) => state.logout);
+  const fetchProfile = useAuthStore((state) => state.fetchProfile);
+  const forgotPassword = useAuthStore((state) => state.forgotPassword);
+  const resetPassword = useAuthStore((state) => state.resetPassword);
   const updateUser = useAuthStore((state) => state.updateUser);
   const clearError = useAuthStore((state) => state.clearError);
   const restoreSession = useAuthStore((state) => state.restoreSession);
@@ -27,6 +30,9 @@ export const useAuth = () => {
     login,
     register,
     logout,
+    fetchProfile,
+    forgotPassword,
+    resetPassword,
     updateUser,
     clearError,
     restoreSession,
