@@ -30,18 +30,18 @@ export const BrandIntroScreen = ({ navigation }) => {
     }
   }, []);
 
+  const handleGetStarted = useCallback(() => {
+    // Flow 1: Brand intro → Onboarding
+    navigation.navigate(ROUTES.ONBOARDING);
+  }, [navigation]);
+
   const handleNext = useCallback(() => {
     if (currentIndex < 2) {
       goToSlide(currentIndex + 1);
     } else {
       handleGetStarted();
     }
-  }, [currentIndex, goToSlide]);
-
-  const handleGetStarted = useCallback(() => {
-    // Flow 1: Brand intro → Onboarding
-    navigation.replace(ROUTES.ONBOARDING);
-  }, [navigation]);
+  }, [currentIndex, goToSlide, handleGetStarted]);
 
   const onViewableItemsChanged = useRef(({ viewableItems }) => {
     if (viewableItems && viewableItems.length > 0) {

@@ -30,12 +30,12 @@ export const OnboardingScreen = ({ navigation }) => {
     if (currentIndex < 1) {
       goToSlide(currentIndex + 1);
     } else {
-      navigation.replace(ROUTES.REGISTER);
+      navigation.navigate(ROUTES.REGISTER);
     }
   }, [currentIndex, goToSlide, navigation]);
 
   const handleSkip = useCallback(() => {
-    navigation.replace(ROUTES.REGISTER);
+    navigation.navigate(ROUTES.REGISTER);
   }, [navigation]);
 
   const onViewableItemsChanged = useRef(({ viewableItems }) => {

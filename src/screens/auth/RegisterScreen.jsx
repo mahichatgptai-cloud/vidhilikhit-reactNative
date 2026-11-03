@@ -80,6 +80,14 @@ export const RegisterScreen = ({ navigation }) => {
     navigation.navigate(ROUTES.BIRTH_DETAILS, { registrationData });
   };
 
+  const handleBack = () => {
+    if (navigation?.canGoBack?.()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate(ROUTES.ONBOARDING);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
@@ -104,9 +112,11 @@ export const RegisterScreen = ({ navigation }) => {
           <View style={styles.headerBar}>
             <TouchableOpacity
               style={styles.backButton}
-              onPress={() => navigation.goBack()}
+              onPress={handleBack}
               activeOpacity={0.7}
-              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+              hitSlop={{ top: 16, bottom: 16, left: 16, right: 16 }}
+              accessibilityRole="button"
+              accessibilityLabel="Go back"
             >
               <IconArrowLeft size={22} color="#26160C" />
             </TouchableOpacity>
@@ -294,11 +304,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: vh(0.5),
+    zIndex: 10,
   },
   backButton: {
-    width: vw(9),
-    height: vw(9),
+    width: Math.max(rem(40), 40),
+    height: Math.max(rem(40), 40),
     justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   celestialImage: {
     width: vw(68),

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { fontFamily } from '../../theme/typography';
 
 export const IconArrowLeft = ({ size = 22, color = '#26160C' }) => (
@@ -147,17 +147,95 @@ export const IconTrend = ({ size = 24, color = '#E5B869' }) => (
   </View>
 );
 
-export const IconHeart = ({ size = 22, color = '#6B4F35' }) => (
+export const IconHeart = ({ size = 22, color = '#6B4F35', filled = false }) => (
   <View style={[styles.center, { width: size, height: size }]}>
-    <Text style={{ fontSize: size * 0.95, color, fontWeight: '700', lineHeight: size + 2 }}>♡</Text>
+    <Text style={{ fontSize: size * 0.95, color, fontWeight: '700', lineHeight: size + 2 }}>
+      {filled ? '♥' : '♡'}
+    </Text>
   </View>
 );
 
-export const IconBriefcase = ({ size = 24, color = '#E5B869' }) => (
-  <View style={[styles.center, { width: size, height: size }]}>
-    <Text style={{ fontSize: size * 0.85, color }}>💼</Text>
-  </View>
-);
+export const IconBriefcase = ({ size = 28 }) => {
+  const w = size;
+  const h = size * 0.74;
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      {/* Top Handle */}
+      <View
+        style={{
+          width: w * 0.38,
+          height: h * 0.32,
+          borderTopLeftRadius: 3,
+          borderTopRightRadius: 3,
+          borderWidth: 1.8,
+          borderBottomWidth: 0,
+          borderColor: '#6E3E10',
+          marginBottom: -1,
+        }}
+      />
+      {/* Bag Body */}
+      <View
+        style={{
+          width: w * 0.94,
+          height: h * 0.82,
+          backgroundColor: '#C87E2C',
+          borderRadius: 4,
+          borderWidth: 1.5,
+          borderColor: '#6E3E10',
+          overflow: 'hidden',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {/* Top flap line */}
+        <View
+          style={{
+            position: 'absolute',
+            top: h * 0.35,
+            left: 0,
+            right: 0,
+            height: 1.2,
+            backgroundColor: '#8B4E14',
+          }}
+        />
+        {/* Vertical Straps */}
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: w * 0.22,
+            width: 2,
+            backgroundColor: '#8B4E14',
+          }}
+        />
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            right: w * 0.22,
+            width: 2,
+            backgroundColor: '#8B4E14',
+          }}
+        />
+        {/* Golden Clasp */}
+        <View
+          style={{
+            position: 'absolute',
+            top: h * 0.28,
+            width: 5.5,
+            height: 5,
+            backgroundColor: '#F5CE62',
+            borderRadius: 1,
+            borderWidth: 1,
+            borderColor: '#A87D1A',
+          }}
+        />
+      </View>
+    </View>
+  );
+};
 
 export const IconLotus = ({ size = 24, color = '#E5B869' }) => (
   <View style={[styles.center, { width: size, height: size }]}>
@@ -984,6 +1062,80 @@ export const IconGoogle = ({ size = 18 }) => (
   <Text style={{ fontSize: size, fontWeight: '700', color: '#EA4335' }}>G</Text>
 );
 
+export const IconApple = ({ size = 18, color = '#26160C', style }) => {
+  if (Platform.OS === 'ios') {
+    return (
+      <View style={[styles.center, { width: size, height: size }, style]}>
+        <Text
+          style={{
+            fontSize: Math.round(size * 1.15),
+            color,
+            includeFontPadding: false,
+          }}
+        >
+          {'\uF8FF'}
+        </Text>
+      </View>
+    );
+  }
+
+  const leafW = Math.max(3, Math.round(size * 0.2));
+  const leafH = Math.max(4, Math.round(size * 0.3));
+  const bodyW = Math.max(5, Math.round(size * 0.38));
+  const bodyH = Math.max(8, Math.round(size * 0.62));
+  const radius = Math.round(bodyW * 0.55);
+
+  return (
+    <View style={[styles.center, { width: size, height: size }, style]}>
+      {/* Leaf */}
+      <View
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: Math.round(size * 0.32),
+          width: leafW,
+          height: leafH,
+          borderTopRightRadius: leafW,
+          borderBottomLeftRadius: leafW,
+          backgroundColor: color,
+          transform: [{ rotate: '30deg' }],
+        }}
+      />
+      {/* Apple body */}
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <View
+          style={{
+            width: bodyW,
+            height: bodyH,
+            borderRadius: radius,
+            borderBottomLeftRadius: Math.round(radius * 1.2),
+            backgroundColor: color,
+            marginRight: -Math.round(size * 0.08),
+          }}
+        />
+        <View
+          style={{
+            width: bodyW,
+            height: bodyH,
+            borderRadius: radius,
+            borderBottomRightRadius: Math.round(radius * 1.2),
+            backgroundColor: color,
+            marginLeft: -Math.round(size * 0.08),
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
 export const IconZodiacAries = ({ size = 24, color = '#C89445' }) => {
   const stroke = 2.2;
   const loopW = Math.round(size * 0.46);
@@ -1123,6 +1275,406 @@ export const IconStarSparkle = ({ size = 24, color = '#C89445' }) => {
   );
 };
 
+export const IconShare = ({ size = 20, color = '#26160C' }) => {
+  const stroke = 1.8;
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      {/* Box container */}
+      <View
+        style={{
+          width: size * 0.72,
+          height: size * 0.52,
+          borderWidth: stroke,
+          borderTopWidth: 0,
+          borderColor: color,
+          borderRadius: 2.5,
+          position: 'absolute',
+          bottom: 2,
+        }}
+      />
+      {/* Upward arrow shaft */}
+      <View
+        style={{
+          width: stroke,
+          height: size * 0.46,
+          backgroundColor: color,
+          position: 'absolute',
+          top: 2,
+        }}
+      />
+      {/* Arrowhead */}
+      <View
+        style={{
+          position: 'absolute',
+          top: 2,
+          width: size * 0.28,
+          height: size * 0.28,
+          borderTopWidth: stroke,
+          borderRightWidth: stroke,
+          borderColor: color,
+          transform: [{ rotate: '-45deg' }],
+        }}
+      />
+    </View>
+  );
+};
+
+export const IconLeaf = ({ size = 26, color = '#4A7C28' }) => (
+  <View style={[styles.center, { width: size, height: size }]}>
+    {/* Central Stem */}
+    <View style={{ width: 1.6, height: size * 0.82, backgroundColor: '#7A5E38', borderRadius: 1 }} />
+    {/* Top Center Leaf */}
+    <View
+      style={{
+        position: 'absolute',
+        top: 2,
+        width: size * 0.28,
+        height: size * 0.36,
+        borderTopLeftRadius: size * 0.28,
+        borderBottomRightRadius: size * 0.28,
+        backgroundColor: color,
+      }}
+    />
+    {/* Left Leaf */}
+    <View
+      style={{
+        position: 'absolute',
+        top: size * 0.22,
+        left: size * 0.08,
+        width: size * 0.32,
+        height: size * 0.28,
+        borderTopLeftRadius: size * 0.3,
+        borderBottomRightRadius: size * 0.3,
+        backgroundColor: color,
+        transform: [{ rotate: '-35deg' }],
+      }}
+    />
+    {/* Right Leaf */}
+    <View
+      style={{
+        position: 'absolute',
+        top: size * 0.22,
+        right: size * 0.08,
+        width: size * 0.32,
+        height: size * 0.28,
+        borderTopRightRadius: size * 0.3,
+        borderBottomLeftRadius: size * 0.3,
+        backgroundColor: color,
+        transform: [{ rotate: '35deg' }],
+      }}
+    />
+  </View>
+);
+
+export const IconRubyHeart = ({ size = 28 }) => (
+  <View style={[styles.center, { width: size, height: size }]}>
+    <Text style={{ fontSize: size * 0.9, lineHeight: size + 2 }}>❤️</Text>
+  </View>
+);
+
+export const IconSunFace = ({ size = 32, color = '#C89B48' }) => {
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      {[0, 45, 90, 135].map((deg) => (
+        <View
+          key={deg}
+          style={{
+            position: 'absolute',
+            width: size * 0.95,
+            height: 2.4,
+            backgroundColor: color,
+            borderRadius: 1.2,
+            transform: [{ rotate: `${deg}deg` }],
+          }}
+        />
+      ))}
+      {[22.5, 67.5, 112.5, 157.5].map((deg) => (
+        <View
+          key={deg}
+          style={{
+            position: 'absolute',
+            width: size * 0.8,
+            height: 1.8,
+            backgroundColor: color,
+            borderRadius: 1,
+            transform: [{ rotate: `${deg}deg` }],
+          }}
+        />
+      ))}
+      <View
+        style={{
+          width: size * 0.6,
+          height: size * 0.6,
+          borderRadius: (size * 0.6) / 2,
+          backgroundColor: '#F7E7CD',
+          borderWidth: 1.6,
+          borderColor: color,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <View style={{ flexDirection: 'row', gap: 3.5, marginBottom: 1 }}>
+          <View style={{ width: 2.2, height: 2.2, borderRadius: 1.1, backgroundColor: '#5C3818' }} />
+          <View style={{ width: 2.2, height: 2.2, borderRadius: 1.1, backgroundColor: '#5C3818' }} />
+        </View>
+        <View
+          style={{
+            width: 4.5,
+            height: 2,
+            borderBottomLeftRadius: 2,
+            borderBottomRightRadius: 2,
+            borderWidth: 1,
+            borderTopWidth: 0,
+            borderColor: '#5C3818',
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+export const IconMoonCrescent = ({ size = 30, color = '#17363D' }) => {
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      <View
+        style={{
+          width: size * 0.82,
+          height: size * 0.82,
+          borderRadius: (size * 0.82) / 2,
+          backgroundColor: color,
+          overflow: 'hidden',
+        }}
+      >
+        <View
+          style={{
+            position: 'absolute',
+            top: -size * 0.08,
+            left: size * 0.22,
+            width: size * 0.76,
+            height: size * 0.76,
+            borderRadius: (size * 0.76) / 2,
+            backgroundColor: '#F8EEDE',
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+export const IconGoldCoins = ({ size = 32 }) => {
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 2,
+          right: 3,
+          width: size * 0.58,
+          height: size * 0.36,
+          borderRadius: size * 0.18,
+          backgroundColor: '#D4A843',
+          borderWidth: 1.5,
+          borderColor: '#9E7418',
+        }}
+      />
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 4,
+          left: 2,
+          width: size * 0.58,
+          height: size * 0.36,
+          borderRadius: size * 0.18,
+          backgroundColor: '#E6BC50',
+          borderWidth: 1.5,
+          borderColor: '#A87D1A',
+        }}
+      />
+      <View
+        style={{
+          position: 'absolute',
+          top: 3,
+          width: size * 0.62,
+          height: size * 0.38,
+          borderRadius: size * 0.19,
+          backgroundColor: '#F5CE62',
+          borderWidth: 1.5,
+          borderColor: '#C08D20',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <View
+          style={{
+            width: size * 0.36,
+            height: size * 0.22,
+            borderRadius: size * 0.11,
+            borderWidth: 1,
+            borderColor: '#9E7418',
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+export const IconGemCitrine = ({ size = 28 }) => {
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      <View
+        style={{
+          width: size * 0.74,
+          height: size * 0.88,
+          borderRadius: (size * 0.74) / 2,
+          backgroundColor: '#EAA228',
+          borderWidth: 1.6,
+          borderColor: '#8C4D0A',
+          overflow: 'hidden',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {/* Inner facet */}
+        <View
+          style={{
+            width: size * 0.44,
+            height: size * 0.54,
+            borderRadius: (size * 0.44) / 2,
+            backgroundColor: '#FCD259',
+            borderWidth: 1,
+            borderColor: '#B36D12',
+          }}
+        />
+        {/* Sparkle glint */}
+        <View
+          style={{
+            position: 'absolute',
+            top: 2,
+            right: 4,
+            width: 3.5,
+            height: 3.5,
+            borderRadius: 2,
+            backgroundColor: '#FFFFFF',
+            opacity: 0.9,
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+export const IconCompassRose = ({ size = 26, color = '#C89B48' }) => {
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      <View
+        style={{
+          width: size * 0.88,
+          height: size * 0.88,
+          borderRadius: (size * 0.88) / 2,
+          borderWidth: 1.2,
+          borderColor: color,
+        }}
+      />
+      <View
+        style={{
+          position: 'absolute',
+          width: 2.2,
+          height: size * 0.78,
+          backgroundColor: '#B71C1C',
+          borderRadius: 1.1,
+        }}
+      />
+      <View
+        style={{
+          position: 'absolute',
+          width: size * 0.78,
+          height: 2.2,
+          backgroundColor: color,
+          borderRadius: 1.1,
+        }}
+      />
+      <View
+        style={{
+          position: 'absolute',
+          width: 5,
+          height: 5,
+          borderRadius: 2.5,
+          backgroundColor: color,
+        }}
+      />
+    </View>
+  );
+};
+
+export const IconPaperclip = ({ size = 20, color = '#6B4F35' }) => {
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      <Text style={{ fontSize: size * 0.95, color }}>📎</Text>
+    </View>
+  );
+};
+
+export const IconSendPlane = ({ size = 20, color = '#FFFFFF' }) => {
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      <Text style={{ fontSize: size * 0.99, color, transform: [{ rotate: '-25deg' }], marginTop: -4, marginLeft: -2 }}>
+        ➤
+      </Text>
+    </View>
+  );
+};
+
+export const IconCamera = ({ size = 16, color = '#FFFFFF' }) => {
+  const w = size;
+  const h = size * 0.76;
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      {/* Top flash tab */}
+      <View
+        style={{
+          width: w * 0.32,
+          height: h * 0.22,
+          backgroundColor: color,
+          borderTopLeftRadius: 1.5,
+          borderTopRightRadius: 1.5,
+          marginBottom: -0.5,
+        }}
+      />
+      {/* Camera body */}
+      <View
+        style={{
+          width: w,
+          height: h * 0.8,
+          backgroundColor: color,
+          borderRadius: 2.5,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {/* Lens */}
+        <View
+          style={{
+            width: h * 0.44,
+            height: h * 0.44,
+            borderRadius: (h * 0.44) / 2,
+            borderWidth: 1.2,
+            borderColor: '#083236',
+            backgroundColor: color,
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+export const IconCheck = ({ size = 18, color = '#FFFFFF' }) => {
+  return (
+    <View style={[styles.center, { width: size, height: size }]}>
+      <Text style={{ fontSize: size * 0.82, color, fontWeight: '800' }}>✓</Text>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   center: {
     alignItems: 'center',
@@ -1172,4 +1724,16 @@ export default {
   IconZodiacAries,
   IconZodiacTaurus,
   IconStarSparkle,
+  IconShare,
+  IconLeaf,
+  IconRubyHeart,
+  IconSunFace,
+  IconMoonCrescent,
+  IconGoldCoins,
+  IconGemCitrine,
+  IconCompassRose,
+  IconPaperclip,
+  IconSendPlane,
+  IconCamera,
+  IconCheck,
 };

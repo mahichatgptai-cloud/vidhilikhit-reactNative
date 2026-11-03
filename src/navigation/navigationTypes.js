@@ -23,7 +23,15 @@ export const ROUTES = {
   APP_STACK: 'AppStack',
   HOME: 'Home',
   MY_KUNDALI: 'MyKundali',
+  MATCHMAKING: 'Matchmaking',
+  PARTNER_DETAILS: 'PartnerDetails',
+  COMPATIBILITY_REPORT: 'CompatibilityReport',
+  COMPATIBILITY_DETAILS: 'CompatibilityDetails',
+  DAILY_GUIDANCE: 'DailyGuidance',
+  REPORTS: 'Reports',
+  BOT: 'Bot',
   PROFILE: 'Profile',
+  EDIT_PROFILE: 'EditProfile',
 };
 
 export const DEFAULT_SCREEN_OPTIONS = {

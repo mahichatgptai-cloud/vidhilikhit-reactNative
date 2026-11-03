@@ -59,6 +59,29 @@ export const HomeScreen = ({ navigation, route }) => {
       });
       return;
     }
+    if (serviceName === 'Matchmaking') {
+      navigation.navigate(ROUTES.MATCHMAKING, {
+        userDetails: {
+          name: rawName,
+          dob: user?.birthDetails?.date || '15 March 1995',
+          tob: user?.birthDetails?.time || '10:30 AM',
+          pob: user?.birthDetails?.place || 'Mumbai, Maharashtra, India',
+        },
+      });
+      return;
+    }
+    if (serviceName === 'Daily Guidance') {
+      navigation.navigate(ROUTES.DAILY_GUIDANCE);
+      return;
+    }
+    if (serviceName === 'Reports') {
+      navigation.navigate(ROUTES.REPORTS);
+      return;
+    }
+    if (serviceName === 'Vidhilikhit Bot') {
+      navigation.navigate(ROUTES.BOT);
+      return;
+    }
     Alert.alert(
       serviceName,
       `Opening ${serviceName} feature...`,
@@ -272,7 +295,17 @@ export const HomeScreen = ({ navigation, route }) => {
           {/* Tab 3: Match */}
           <TouchableOpacity
             style={styles.navTab}
-            onPress={() => setActiveTab('Match')}
+            onPress={() => {
+              setActiveTab('Match');
+              navigation.navigate(ROUTES.MATCHMAKING, {
+                userDetails: {
+                  name: rawName,
+                  dob: user?.birthDetails?.date || '15 March 1995',
+                  tob: user?.birthDetails?.time || '10:30 AM',
+                  pob: user?.birthDetails?.place || 'Mumbai, Maharashtra, India',
+                },
+              });
+            }}
             activeOpacity={0.7}
           >
             <IconHeart size={rem(19)} color={activeTab === 'Match' ? '#083236' : '#6B4F35'} />
@@ -289,7 +322,10 @@ export const HomeScreen = ({ navigation, route }) => {
           {/* Tab 4: Bot */}
           <TouchableOpacity
             style={styles.navTab}
-            onPress={() => setActiveTab('Bot')}
+            onPress={() => {
+              setActiveTab('Bot');
+              navigation.navigate(ROUTES.BOT);
+            }}
             activeOpacity={0.7}
           >
             <IconBotTab size={rem(21)} color={activeTab === 'Bot' ? '#083236' : '#6B4F35'} />

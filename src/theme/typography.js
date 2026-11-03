@@ -1,29 +1,85 @@
 /**
- * Typography definitions and text styles
- * Configured with Inria Sans and its variants for titles, subtitles, body, and captions
+ * Typography System - Vidhilikhit Mobile
+ * Standardized Classical/Editorial Serif Design System
+ *
+ * 1. Primary (Headings / Screen Titles): Cormorant Garamond (600–700)
+ *    Used for: My Kundali, Matchmaking, Personalized Guidance, Graha Positions, Screen Headers.
+ * 2. Secondary (Body / Descriptions / UI): Lora (400–600)
+ *    Used for: Body text, descriptions, cards, form inputs, buttons, navigation labels, Numbers & Kundali data.
+ * 3. Hindi / Devanagari: Noto Serif Devanagari (400–700)
+ *    Used for: विधिलिखित branding and future Hindi/localized Vedic content.
  */
 
+export const fontFamilies = {
+  // Cormorant Garamond - Primary Editorial Serif (Titles & Headings)
+  cormorant: {
+    semiBold: 'CormorantGaramond-SemiBold',
+    bold: 'CormorantGaramond-Bold',
+    regular: 'CormorantGaramond-Regular',
+    medium: 'CormorantGaramond-Medium',
+    italic: 'CormorantGaramond-Italic',
+  },
+
+  // Lora - Secondary Editorial Serif (Body, Cards, Inputs, Buttons, Data)
+  lora: {
+    regular: 'Lora-Regular',
+    medium: 'Lora-Medium',
+    semiBold: 'Lora-SemiBold',
+    bold: 'Lora-Bold',
+    italic: 'Lora-Italic',
+  },
+
+  // Noto Serif Devanagari - Hindi / Vedic Script
+  devanagari: {
+    regular: 'NotoSerifDevanagari-Regular',
+    medium: 'NotoSerifDevanagari-Medium',
+    semiBold: 'NotoSerifDevanagari-SemiBold',
+    bold: 'NotoSerifDevanagari-Bold',
+  },
+};
+
 export const fontFamily = {
-  // Core Inria Sans font variants
-  regular: 'InriaSans-Regular',
-  bold: 'InriaSans-Bold',
-  light: 'InriaSans-Light',
-  italic: 'InriaSans-Italic',
-  boldItalic: 'InriaSans-BoldItalic',
-  lightItalic: 'InriaSans-LightItalic',
+  // 1. Primary: Main Headings & Screen Titles (Cormorant Garamond 600-700)
+  title: fontFamilies.cormorant.bold,
+  titleLarge: fontFamilies.cormorant.bold,
+  titleSemiBold: fontFamilies.cormorant.semiBold,
+  heading: fontFamilies.cormorant.semiBold,
+  headingBold: fontFamilies.cormorant.bold,
 
-  // Semantic variants according to Title and Subtitles
-  title: 'InriaSans-Bold',
-  titleLarge: 'InriaSans-Bold',
-  subtitle: 'InriaSans-Regular',
-  subtitleBold: 'InriaSans-Bold',
-  body: 'InriaSans-Regular',
-  caption: 'InriaSans-Light',
+  // 2. Secondary: Body Text & Descriptions (Lora 400-500)
+  body: fontFamilies.lora.regular,
+  bodyMedium: fontFamilies.lora.medium,
+  regular: fontFamilies.lora.regular,
+  medium: fontFamilies.lora.medium,
+  subtitle: fontFamilies.lora.regular,
+  subtitleBold: fontFamilies.lora.semiBold,
+  caption: fontFamilies.lora.regular,
+  light: fontFamilies.lora.regular,
 
-  // Aliases for compatibility
-  medium: 'InriaSans-Regular',
-  serif: 'InriaSans-Regular',
-  serifBold: 'InriaSans-Bold',
+  // 3. Buttons & Form Labels (Lora 500-600)
+  button: fontFamilies.lora.semiBold,
+  label: fontFamilies.lora.medium,
+  labelBold: fontFamilies.lora.semiBold,
+  input: fontFamilies.lora.regular,
+
+  // 4. Numbers & Kundali Data (Lora 500-600)
+  data: fontFamilies.lora.medium,
+  dataBold: fontFamilies.lora.semiBold,
+  numbers: fontFamilies.lora.semiBold,
+  serif: fontFamilies.lora.regular,
+  serifBold: fontFamilies.lora.bold,
+  bold: fontFamilies.lora.semiBold,
+
+  // 5. Hindi / Devanagari (Noto Serif Devanagari 400-700)
+  hindi: fontFamilies.devanagari.regular,
+  hindiMedium: fontFamilies.devanagari.medium,
+  hindiBold: fontFamilies.devanagari.bold,
+  devanagari: fontFamilies.devanagari.regular,
+  devanagariBold: fontFamilies.devanagari.bold,
+
+  // Direct font family access
+  cormorant: fontFamilies.cormorant,
+  lora: fontFamilies.lora,
 };
 
 export const fontSize = {
@@ -56,19 +112,21 @@ export const lineHeight = {
 
 export const textStyles = {
   h1: {
-    fontFamily: fontFamily.title,
+    fontFamily: fontFamily.titleLarge,
     fontSize: fontSize['3xl'],
     fontWeight: fontWeight.bold,
     lineHeight: lineHeight.display,
+    letterSpacing: 0.3,
   },
   h2: {
     fontFamily: fontFamily.title,
     fontSize: fontSize['2xl'],
     fontWeight: fontWeight.bold,
     lineHeight: lineHeight.loose,
+    letterSpacing: 0.25,
   },
   h3: {
-    fontFamily: fontFamily.title,
+    fontFamily: fontFamily.heading,
     fontSize: fontSize.xl,
     fontWeight: fontWeight.semibold,
     lineHeight: lineHeight.relaxed,
@@ -94,7 +152,7 @@ export const textStyles = {
   subtitleBold: {
     fontFamily: fontFamily.subtitleBold,
     fontSize: fontSize.lg,
-    fontWeight: fontWeight.bold,
+    fontWeight: fontWeight.semibold,
     lineHeight: lineHeight.relaxed,
   },
   subtitleSmall: {
@@ -118,17 +176,35 @@ export const textStyles = {
   caption: {
     fontFamily: fontFamily.caption,
     fontSize: fontSize.xs,
-    fontWeight: fontWeight.light,
+    fontWeight: fontWeight.regular,
     lineHeight: lineHeight.tight,
   },
   button: {
-    fontFamily: fontFamily.bold,
+    fontFamily: fontFamily.button,
     fontSize: fontSize.base,
     fontWeight: fontWeight.semibold,
     lineHeight: lineHeight.normal,
   },
   input: {
-    fontFamily: fontFamily.body,
+    fontFamily: fontFamily.input,
+    fontSize: fontSize.base,
+    fontWeight: fontWeight.regular,
+    lineHeight: lineHeight.normal,
+  },
+  kundaliData: {
+    fontFamily: fontFamily.data,
+    fontSize: fontSize.sm,
+    fontWeight: fontWeight.medium,
+    lineHeight: lineHeight.normal,
+  },
+  hindiTitle: {
+    fontFamily: fontFamily.hindiBold,
+    fontSize: fontSize['2xl'],
+    fontWeight: fontWeight.bold,
+    lineHeight: lineHeight.loose,
+  },
+  hindiBody: {
+    fontFamily: fontFamily.hindi,
     fontSize: fontSize.base,
     fontWeight: fontWeight.regular,
     lineHeight: lineHeight.normal,
@@ -136,6 +212,7 @@ export const textStyles = {
 };
 
 export default {
+  fontFamilies,
   fontFamily,
   fontSize,
   fontWeight,
